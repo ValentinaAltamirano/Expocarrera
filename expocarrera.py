@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 def ventanaCreate(v):
     v.title("Adivinador de numero") 
@@ -116,7 +117,7 @@ def paso4():
     v3.withdraw()
     v4 = Tk()
     ventanaCreate(v4)
-    restaValue = IntVar(v4, 0)
+    restaValue = StringVar(v4, '0')
 
     if radioVal.get() == 1:
         texto = Label(v4,text="Ahora, al numero mayor restale el menor. \n\n Ingrese el resultado:")
@@ -157,7 +158,7 @@ def paso5():
     v4.withdraw()
     v5 = Tk()
     ventanaCreate(v5)
-    sumaValue = IntVar(v5, 0)
+    sumaValue = StringVar(v5, '0')
 
     if radioVal.get() == 1:
         texto = Label(v5,text="Luego sumá las cifras del número \nque pensaste al principio. \n\n Ingrese el resultado:")
@@ -199,40 +200,77 @@ def paso6():
     v6 = Tk()
     ventanaCreate(v6)
     txt = StringVar(v6, "")
+    num1 = restaValue.get()
+    num2 = sumaValue.get()
 
-    num1 = int(restaValue.get())
-    num2 = int(sumaValue.get())
-    rta = calcular(num1, num2)
+    if validar(num1) and validar(num2):
+        
+        rta = calcular(int(num1), int(num2))
 
-    if radioVal.get() == 1:
-        txt.set("Pensaste en el numero: \n\n" + str(rta))
-        texto = Label(v6,textvariable=txt)
-        texto.place(x=349, y=120)
+        if radioVal.get() == 1:
+            txt.set("Pensaste en el numero: \n\n" + str(rta))
+            texto = Label(v6,textvariable=txt)
+            texto.place(x=349, y=120)
 
-        texto.config(fg="#ffa7c4", bg='#2c2638',font=("Verdana",40))
-        cont = Button(v6, text="Volver a jugar", command=lambda: atras(v6, v1))
-        cont.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 15, border = 0)
-        cont.place(x=633, y=418)
+            texto.config(fg="#ffa7c4", bg='#2c2638',font=("Verdana",40))
+            cont = Button(v6, text="Volver a jugar", command=lambda: atras(v6, v1))
+            cont.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 15, border = 0)
+            cont.place(x=633, y=418)
 
-        volver = Button(v6, text="Volver", command=lambda: atras(v6, v5))
-        volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
-        volver.place(x=229, y=418)
-    
-    
-    if radioVal.get() == 2:
-        txt.set("You thought on the number: \n\n" + str(rta))
-        texto = Label(v6,textvariable=txt)
-        texto.place(x=303, y=120)
-        texto.config(fg="#ffa7c4", bg='#2c2638',font=("Verdana",40))
-    
-        cont = Button(v6, text="Restart", command=lambda: atras(v6, v1))
-        cont.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
-        cont.place(x=715, y=418)
+            volver = Button(v6, text="Volver", command=lambda: atras(v6, v5))
+            volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
+            volver.place(x=229, y=418)
+        
+        
+        if radioVal.get() == 2:
+            txt.set("You thought on the number: \n\n" + str(rta))
+            texto = Label(v6,textvariable=txt)
+            texto.place(x=303, y=120)
+            texto.config(fg="#ffa7c4", bg='#2c2638',font=("Verdana",40))
+        
+            cont = Button(v6, text="Restart", command=lambda: atras(v6, v1))
+            cont.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
+            cont.place(x=715, y=418)
 
-        volver = Button(v6, text="Return", command=lambda: atras(v6, v5))
-        volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
-        volver.place(x=313, y=418)
+            volver = Button(v6, text="Return", command=lambda: atras(v6, v5))
+            volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
+            volver.place(x=313, y=418)
+    else:
+        if radioVal.get() == 1:
+            
+            messagebox.showinfo(message="Ingrese un numero porfavor.", title="Error")
+            texto = Label(v6,text="Datos mal ingresados.")
+            texto.place(x=382, y=177)
+            texto.config(fg="#ffa7c4", bg='#2c2638',font=("Verdana",30))
 
+            volver = Button(v6, text="Volver", command=lambda: atras(v6, v5))
+            volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
+            volver.place(x=229, y=395)
+
+            texto.config(fg="#ffa7c4", bg='#2c2638',font=("Verdana",40))
+            cont = Button(v6, text="Volver a jugar", command=lambda: atras(v6, v1))
+            cont.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 15, border = 0)
+            cont.place(x=633, y=395)
+
+
+        if radioVal.get() == 2:
+
+            messagebox.showinfo(message="Please enter a number.", title="Error")
+            volver = Button(v6, text="Return", command=lambda: atras(v6, v5))
+            volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
+            volver.place(x=313, y=418)
+
+            cont = Button(v6, text="Restart", command=lambda: atras(v6, v1))
+            cont.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
+            cont.place(x=715, y=418)
+        
+
+def validar(n):
+        try:
+            float(n)
+            return True
+        except:
+            return False
 
 def calcular(n1, n2):
 
