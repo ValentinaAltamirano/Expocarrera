@@ -63,8 +63,6 @@ def paso2():
         volver = Button(v2, text="Return", command=lambda: atras(v2, v1))
         volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
         volver.place(x=313, y=418)
-    
-    v2.mainloop()
 
 def paso3():
 
@@ -109,15 +107,13 @@ def paso3():
         volver = Button(v3, text="Return", command=lambda: atras(v3, v2))
         volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
         volver.place(x=517, y=500)
-    
-    v3.mainloop()
 
 def paso4():
     global v4, restaValue
     v3.withdraw()
     v4 = Tk()
     ventanaCreate(v4)
-    restaValue = StringVar(v4, '0')
+    restaValue = StringVar(v4, '')
 
     if radioVal.get() == 1:
         texto = Label(v4,text="Ahora, al numero mayor restale el menor. \n\n Ingrese el resultado:")
@@ -158,7 +154,7 @@ def paso5():
     v4.withdraw()
     v5 = Tk()
     ventanaCreate(v5)
-    sumaValue = StringVar(v5, '0')
+    sumaValue = StringVar(v5, '')
 
     if radioVal.get() == 1:
         texto = Label(v5,text="Luego sumá las cifras del número \nque pensaste al principio. \n\n Ingrese el resultado:")
@@ -254,8 +250,12 @@ def paso6():
 
 
         if radioVal.get() == 2:
+            texto = Label(v6,text="Wrong data entered.")
+            texto.place(x=414, y=177)
+            texto.config(fg="#ffa7c4", bg='#2c2638',font=("Verdana",40))
 
             messagebox.showinfo(message="Please enter a number.", title="Error")
+
             volver = Button(v6, text="Return", command=lambda: atras(v6, v5))
             volver.config(fg="#353042", bg='#ffa7c4',font=("Verdana",40),width = 10, border = 0)
             volver.place(x=313, y=418)
